@@ -11,11 +11,15 @@ pub fn decode_hex(hex_str: &str) -> Result<Vec<u8>, String> {
         .as_bytes()
         .chunks(2)
         .map(|chunk| {
-            let s = std::str::from_utf8(chunk).unwrap();
-            u8::from_str_radix(s, 16).map_err(|_| format!("it is not a valid hex byte: {}", s))
+            let s = std::str::from_utf8(chunk)
+                .map_err(|_| "Invalid UTF-8 in hex string".to_string())?;
+
+            u8::from_str_radix(s, 16)
+                .map_err(|_| format!("invalid hex byte: {}", s))
         })
-        .collect::<Result<Vec<u8>, String>>()
+        .collect()
 }
+
 
 pub fn to_big_endian(bytes: &[u8]) -> Vec<u8> {
     // TODO: Reverse the byte order of input slice and return as Vec<u8>
