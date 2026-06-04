@@ -1,10 +1,11 @@
 use hex::{decode, encode};
 
-pub fn decode_hex(hex_str: &str) -> Result<Vec<u8>, String> {//explanation of it returns Vec<u8> and takes a hex string reference
+pub fn decode_hex(hex_str: &str) -> Result<Vec<u8>, String> {
+    //explanation of it returns Vec<u8> and takes a hex string reference
 
-    let hex_str = hex_str.trim();// this remove space from hex_str and return it in hex_str
+    let hex_str = hex_str.trim(); // this remove space from hex_str and return it in hex_str
 
-    //this perform a modulus of 2 and if return a value that is not 0 its sees it as an odd number 
+    //this perform a modulus of 2 and if return a value that is not 0 its sees it as an odd number
     if hex_str.len() % 2 != 0 {
         return Err("Hex string is not even".to_string());
     }
@@ -16,7 +17,7 @@ pub fn decode_hex(hex_str: &str) -> Result<Vec<u8>, String> {//explanation of it
             let s = std::str::from_utf8(chunk)
                 .map_err(|_| "Invalid UTF-8 in hex string".to_string())?;
 
-            u8::from_str_radix(s, 16).map_err(|_| format!("invalid hex byte: {}", s))// after slicing it pass the values as base 16
+            u8::from_str_radix(s, 16).map_err(|_| format!("invalid hex byte: {}", s)) // after slicing it pass the values as base 16
         })
         .collect() // collect all the rsult into a single result into a byte vector
 }
@@ -33,11 +34,13 @@ pub fn hex_to_bytes(hex: &str) -> Result<Vec<u8>, hex::FromHexError> {
     decode(hex) // this does the opposite of encode
 }
 
-pub fn swap_endian_u32(num: u32) -> [u8; 4] { // this returns the fix size array of 4 bytes 
-    num.to_le_bytes()// this line of code changes the integer to little-endian bytes
+pub fn swap_endian_u32(num: u32) -> [u8; 4] {
+    // this returns the fix size array of 4 bytes
+    num.to_le_bytes() // this line of code changes the integer to little-endian bytes
 }
 
-pub fn parse_satoshis(input: &str) -> Result<u64, String> {// takes a borrowed str and it returns valid satoshi amount
+pub fn parse_satoshis(input: &str) -> Result<u64, String> {
+    // takes a borrowed str and it returns valid satoshi amount
     input
         .trim() //this remove the space
         .parse::<u64>()
