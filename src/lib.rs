@@ -1,8 +1,7 @@
 use hex::{decode, encode};
 
 pub fn decode_hex(hex_str: &str) -> Result<Vec<u8>, String> {
-
- let hex_str = hex_str.trim();
+    let hex_str = hex_str.trim();
 
     if hex_str.len() % 2 != 0 {
         return Err("Hex string has to be even ".to_string());
@@ -12,8 +11,7 @@ pub fn decode_hex(hex_str: &str) -> Result<Vec<u8>, String> {
         .chunks(2)
         .map(|chunk| {
             let s = std::str::from_utf8(chunk).unwrap();
-            u8::from_str_radix(s, 16)
-                .map_err(|_| format!("it is not a valid  hex byte: {}", s))
+            u8::from_str_radix(s, 16).map_err(|_| format!("it is not a valid  hex byte: {}", s))
         })
         .collect()
 }
