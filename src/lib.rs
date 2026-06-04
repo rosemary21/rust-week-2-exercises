@@ -12,10 +12,9 @@ pub fn decode_hex(hex_str: &str) -> Result<Vec<u8>, String> {
         .chunks(2)
         .map(|chunk| {
             let s = std::str::from_utf8(chunk).unwrap();
-            u8::from_str_radix(s, 16)
-                .map_err(|_| format!("it is not a valid hex byte: {}", s))
+            u8::from_str_radix(s, 16).map_err(|_| format!("it is not a valid hex byte: {}", s))
         })
-        .collect::<Result<Vec<u8>, String>>() 
+        .collect::<Result<Vec<u8>, String>>()
 }
 
 pub fn to_big_endian(bytes: &[u8]) -> Vec<u8> {
