@@ -16,7 +16,6 @@ pub fn decode_hex(hex_str: &str) -> Result<Vec<u8>, String> {
                 .map_err(|_| format!("it is not a valid  hex byte: {}", s))
         })
         .collect()
-    
 }
 
 pub fn to_big_endian(bytes: &[u8]) -> Vec<u8> {
